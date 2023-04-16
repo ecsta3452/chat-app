@@ -15,11 +15,11 @@ const httpServer = http.createServer(app)
 
 const io = new Server(httpServer, {
   cors: {
-    origin: process.env.BASEURL,
+    origin: [process.env.BASEURL, process.env.SOCKETURL],
   },
 })
 
-app.use(cors({ origin: process.env.BASEURL }))
+app.use(cors({ origin: [process.env.BASEURL, process.env.SOCKETURL] }))
 app.use(morgan('dev'))
 app.use(json())
 
