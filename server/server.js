@@ -1,4 +1,4 @@
-import express from 'express'
+import express, { json } from 'express'
 import cors from 'cors'
 import morgan from 'morgan'
 import { Server } from 'socket.io'
@@ -18,9 +18,17 @@ const io = new Server(httpServer, {
 
 app.use(cors({ origin: '*' }))
 app.use(morgan('dev'))
+app.use(json())
 
 io.on('connection', (socket) => {
   console.log('connected')
+  socket.emit('connected')
+})
+
+app.get('/api', (req, res) => {
+  res.json({
+    message: 'hello',
+  })
 })
 
 httpServer.listen(PORT, () => {
