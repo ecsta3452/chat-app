@@ -3,6 +3,9 @@ import cors from 'cors'
 import morgan from 'morgan'
 import { Server } from 'socket.io'
 import http from 'http'
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 const PORT = 5000
 
@@ -12,11 +15,11 @@ const httpServer = http.createServer(app)
 
 const io = new Server(httpServer, {
   cors: {
-    origin: '*',
+    origin: process.env.BASEURL,
   },
 })
 
-app.use(cors({ origin: '*' }))
+app.use(cors({ origin: process.env.BASEURL }))
 app.use(morgan('dev'))
 app.use(json())
 
